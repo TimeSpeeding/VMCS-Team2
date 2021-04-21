@@ -1,2 +1,10 @@
 /Product.class
 /ProductTest.class
+/Drink.class
+/Coin.class
+/ControlPanel.class
+/CustomerPanel.class
+/MaintainerPanel.class
+/MachineryPanel.class
+/CoinMonitor.class
+/MainVendingMachineControl.class
