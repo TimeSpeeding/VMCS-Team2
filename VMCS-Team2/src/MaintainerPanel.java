@@ -28,6 +28,7 @@ public static void main(String [] args) {
 //	y.verifyPassword(x);
 	
 	start();
+	display();
 	
 }
 
@@ -40,8 +41,8 @@ public static void start() {
 	frame.setTitle("maintainer panel");
 	JPanel content=new JPanel();
 	frame.setContentPane(content);
+	frame.setLayout(new FlowLayout(FlowLayout.CENTER,10,20));
 	
-//	content.setLayout(new GridLayout(10,0));
 	
 	JLabel label = new JLabel("Enter Password");
             content.add(label);
@@ -54,23 +55,35 @@ public static void start() {
 			String password = Password.getText();
 			System.out.println(password);
 			passwordStatus=verifyPassword(password);
-			
 			System.out.println(passwordStatus);		
-			JLabel res = new JLabel("");
-	          content.add(res); 
-	          content.repaint();
+			JLabel res = new JLabel();
+//			res.removeAll();
+			res.setText(passwordStatus);
+			content.add(res); 
+			
+	        content.revalidate();
+//	        frame.repaint();
 			}});
       content.add(Password);
       Password.setColumns(40);
-      content.repaint();
-      
-      
+      content.revalidate();
       
      
+      
+//      content.repaint();
+      
+      
+Drink drink1 = new Drink("pepsi",2,15);
+Drink drink2 = new Drink("sevenup",3,25); 
+Drink drink3 = new Drink("cocacola",4,25);
+//drinkssection
+//flowLayout.get
+//JLabel DrinkLabel = new JLabel("All Drinks Available");
+//content.add(DrinkLabel);
+//DrinkLabel;
+
 
       
-      
-//drinkssection
 	
 	frame.setVisible(true);
 	
@@ -78,6 +91,26 @@ public static void start() {
 public static String verifyPassword(String Password) {
 	
 	return(vendingmachineControl.verifyPassword(Password));
+}
+
+static Drink drink1 = new Drink("pepsi",2,15);
+static Drink drink2 = new Drink("sevenup",3,25); 
+static Drink drink3 = new Drink("cocacola",4,25);
+public static void display(){
+	System.out.println("All Available Drinks:");
+	System.out.println(drink1.getBrand() +"    " +drink1.getQuantity()+"    "+drink1.getPrice());
+	System.out.println(drink2.getBrand() +"    " +drink2.getQuantity()+"    "+drink2.getPrice());
+	System.out.println(drink3.getBrand() +"    " +drink3.getQuantity()+"    "+drink3.getPrice());
+	
+	setNewPrice();
+}
+
+public static void setNewPrice() {
+	System.out.println("choose a brand to set price");
+	Scanner s = new Scanner(System.in);
+	String brand = s.nextLine();
+//	vendingmachineControl.setNewPrice(brand, "75");	
+	
 }
 }
 	

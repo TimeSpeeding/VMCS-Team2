@@ -1,11 +1,13 @@
+
 import java.util.ArrayList;
+
 
 public class MainVendingMachineControl {
 	public static ArrayList<Drink> drinks = new ArrayList<Drink>();
 	public static ArrayList<Coin> coins =new ArrayList<Coin>();
  	
 	public static String savedPassword="1234";
-	
+
 	public void main(String[] args) {
 		prepare();
 	}
@@ -33,5 +35,11 @@ public class MainVendingMachineControl {
 			return "Invalid";
 		}
 	}
+	
+	
+		      
+		     
+
 }
+
 
