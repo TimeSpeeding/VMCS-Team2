@@ -2,10 +2,10 @@
 public class Coin {
 
 	private int value;
-	private int weight;
+	private double weight;
 	private int quantity;
 	
-	public Coin(int value, int weight, int quantity) {
+	public Coin(int value, double weight, int quantity) {
 		this.value = value;
 		this.weight = weight;
 		this.quantity = quantity;
@@ -19,11 +19,11 @@ public class Coin {
 		this.value = value;
 	}
 
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 
-	public void setWeight(int weight) {
+	public void setWeight(double weight) {
 		this.weight = weight;
 	}
 
