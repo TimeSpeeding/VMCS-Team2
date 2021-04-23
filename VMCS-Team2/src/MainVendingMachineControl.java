@@ -9,7 +9,7 @@ public class MainVendingMachineControl {
 	public static ArrayList<Coin> coins =new ArrayList<Coin>();
  	
 	public static String savedPassword="1234";
-
+	
 	public void main(String[] args) {
 		prepare();
 	}
