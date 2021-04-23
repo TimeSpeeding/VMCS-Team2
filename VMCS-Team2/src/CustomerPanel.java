@@ -28,6 +28,7 @@ public class CustomerPanel {
     private JButton drink3 = new JButton(ds.get(2).getBrand());
     private JButton drink4 = new JButton(ds.get(3).getBrand());
     private JButton drink5 = new JButton(ds.get(4).getBrand());
+    private JLabel changeLabel = new JLabel("No Change Available");
     private JButton terminate = new JButton("Terminate and Return Cash");
     private JLabel collectCoinLabel = new JLabel("Collect Coins:           " + Integer.toString(collectCoin) + "  c");
     private JLabel collectCanLabel = new JLabel("Collect Can Here:    " + "No Can");
@@ -110,11 +111,11 @@ public class CustomerPanel {
         totalLabel.setBounds(100, 180, 300, 10);
         panel.add(totalLabel);
         
-        drink1.setEnabled(!checkAvaliability(0));
-        drink2.setEnabled(!checkAvaliability(1));
-        drink3.setEnabled(!checkAvaliability(2));
-        drink4.setEnabled(!checkAvaliability(3));
-        drink5.setEnabled(!checkAvaliability(4));
+        drink1.setEnabled(!checkAvailability(0));
+        drink2.setEnabled(!checkAvailability(1));
+        drink3.setEnabled(!checkAvailability(2));
+        drink4.setEnabled(!checkAvailability(3));
+        drink5.setEnabled(!checkAvailability(4));
         drink1.setBounds(0, 200, 160, 40);
         drink2.setBounds(0, 240, 160, 40);
         drink3.setBounds(0, 280, 160, 40);
@@ -167,33 +168,38 @@ public class CustomerPanel {
         panel.add(drinkPrice4);
         panel.add(drinkPrice5);
         
-        JLabel drinkAvaliabity1 = new JLabel("Not in Stock");
-        JLabel drinkAvaliabity2 = new JLabel("Not in Stock");
-        JLabel drinkAvaliabity3 = new JLabel("Not in Stock");
-        JLabel drinkAvaliabity4 = new JLabel("Not in Stock");
-        JLabel drinkAvaliabity5 = new JLabel("Not in Stock");
-        drinkAvaliabity1.setBounds(300, 200, 120, 40);
-        drinkAvaliabity2.setBounds(300, 240, 120, 40);
-        drinkAvaliabity3.setBounds(300, 280, 120, 40);
-        drinkAvaliabity4.setBounds(300, 320, 120, 40);
-        drinkAvaliabity5.setBounds(300, 360, 120, 40);
-        drinkAvaliabity1.setForeground(Color.red);
-        drinkAvaliabity2.setForeground(Color.red);
-        drinkAvaliabity3.setForeground(Color.red);
-        drinkAvaliabity4.setForeground(Color.red);
-        drinkAvaliabity5.setForeground(Color.red);
-        drinkAvaliabity1.setVisible(checkAvaliability(0));
-        drinkAvaliabity2.setVisible(checkAvaliability(1));
-        drinkAvaliabity3.setVisible(checkAvaliability(2));
-        drinkAvaliabity4.setVisible(checkAvaliability(3));
-        drinkAvaliabity5.setVisible(checkAvaliability(4));
-        panel.add(drinkAvaliabity1);
-        panel.add(drinkAvaliabity2);
-        panel.add(drinkAvaliabity3);
-        panel.add(drinkAvaliabity4);
-        panel.add(drinkAvaliabity5);
+        JLabel drinkAvailabity1 = new JLabel("Not in Stock");
+        JLabel drinkAvailabity2 = new JLabel("Not in Stock");
+        JLabel drinkAvailabity3 = new JLabel("Not in Stock");
+        JLabel drinkAvailabity4 = new JLabel("Not in Stock");
+        JLabel drinkAvailabity5 = new JLabel("Not in Stock");
+        drinkAvailabity1.setBounds(300, 200, 120, 40);
+        drinkAvailabity2.setBounds(300, 240, 120, 40);
+        drinkAvailabity3.setBounds(300, 280, 120, 40);
+        drinkAvailabity4.setBounds(300, 320, 120, 40);
+        drinkAvailabity5.setBounds(300, 360, 120, 40);
+        drinkAvailabity1.setForeground(Color.red);
+        drinkAvailabity2.setForeground(Color.red);
+        drinkAvailabity3.setForeground(Color.red);
+        drinkAvailabity4.setForeground(Color.red);
+        drinkAvailabity5.setForeground(Color.red);
+        drinkAvailabity1.setVisible(checkAvailability(0));
+        drinkAvailabity2.setVisible(checkAvailability(1));
+        drinkAvailabity3.setVisible(checkAvailability(2));
+        drinkAvailabity4.setVisible(checkAvailability(3));
+        drinkAvailabity5.setVisible(checkAvailability(4));
+        panel.add(drinkAvailabity1);
+        panel.add(drinkAvailabity2);
+        panel.add(drinkAvailabity3);
+        panel.add(drinkAvailabity4);
+        panel.add(drinkAvailabity5);
         
-        terminate.setBounds(150, 420, 200, 20);
+        changeLabel.setBounds(150, 420, 200, 20);
+        changeLabel.setForeground(Color.RED);
+        changeLabel.setVisible(false);
+        panel.add(changeLabel);
+        
+        terminate.setBounds(150, 460, 200, 20);
         terminate.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		terminate();
@@ -201,8 +207,8 @@ public class CustomerPanel {
         });
         panel.add(terminate);
         
-        collectCoinLabel.setBounds(150, 460, 200, 20);
-        collectCanLabel.setBounds(150, 490, 200, 20);
+        collectCoinLabel.setBounds(150, 500, 200, 20);
+        collectCanLabel.setBounds(150, 530, 200, 20);
         panel.add(collectCanLabel);
         panel.add(collectCoinLabel);        
         
@@ -241,10 +247,11 @@ public class CustomerPanel {
         drink3.setEnabled(false);
         drink4.setEnabled(false);
         drink5.setEnabled(false);
+        changeLabel.setVisible(false);
 		return;
 	}
 	
-	public boolean checkAvaliability(int i) {
+	public boolean checkAvailability(int i) {
 		if (ds.get(i).getQuantity() == 0) return true;
 		else return false;
 	}
@@ -259,7 +266,12 @@ public class CustomerPanel {
 		collectCanLabel.setText("Collect Can Here:    " + d.getBrand());
 		int change = collectCoin;
 		while(change > 0) {
-			System.out.println(change);
+			if ((change < 10 && cs.get(0).getQuantity() == 0) || (change < 20 && cs.get(0).getQuantity() == 0 && cs.get(1).getQuantity() == 0)
+					|| (change < 50 && cs.get(0).getQuantity() == 0 && cs.get(1).getQuantity() == 0 && cs.get(2).getQuantity() == 0)
+					|| (change < 100 && cs.get(0).getQuantity() == 0 && cs.get(1).getQuantity() == 0 && cs.get(2).getQuantity() == 0 && cs.get(3).getQuantity() == 0)) {
+				changeLabel.setVisible(true);
+				break;
+			}
 			for(int i = 4; i >= 0; i--) {
 				if(cs.get(i).getValue() <= change && cs.get(i).getQuantity() > 0) {
 					change -= cs.get(i).getValue();
@@ -287,10 +299,10 @@ public class CustomerPanel {
 	    coin4.setEnabled(false);
 	    coin5.setEnabled(false);
 	    coin6.setEnabled(false);
-	    drink1.setEnabled(!checkAvaliability(0));
-	    drink2.setEnabled(!checkAvaliability(1));
-	    drink3.setEnabled(!checkAvaliability(2));
-	    drink4.setEnabled(!checkAvaliability(3));
-	    drink5.setEnabled(!checkAvaliability(4));
+	    drink1.setEnabled(!checkAvailability(0));
+	    drink2.setEnabled(!checkAvailability(1));
+	    drink3.setEnabled(!checkAvailability(2));
+	    drink4.setEnabled(!checkAvailability(3));
+	    drink5.setEnabled(!checkAvailability(4));
 	}
 }
