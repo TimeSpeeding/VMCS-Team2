@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 public class MaintainerPanel {
 
-	public  String passwordStatus="";
+	public String passwordStatus="";
 	 private ArrayList<Drink> ds = MainVendingMachineControl.drinks;
 	 MainVendingMachineControl vendingmachineControl= new MainVendingMachineControl();
 	

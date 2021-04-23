@@ -12,7 +12,6 @@ public class CustomerPanel {
 	private MainVendingMachineControl vmcs = new MainVendingMachineControl();
 	private ArrayList<Drink> ds = MainVendingMachineControl.drinks;
 	private ArrayList<Coin> cs = MainVendingMachineControl.coins;
-	private int[] coins = {0,0,0,0,0};
 	
 	private Drink d = null;
 
@@ -23,7 +22,7 @@ public class CustomerPanel {
     private JButton coin5 = new JButton("$1");
     private JButton coin6 = new JButton("Invalid");
     private JLabel invalidLabel = new JLabel("Invalid Coin");
-    private JLabel totalLabel = new JLabel("Total Money Inserted:  " + Integer.toString(insertedMoney) + "  c");
+    private JLabel totalLabel = new JLabel();
     private JButton drink1 = new JButton(ds.get(0).getBrand());
     private JButton drink2 = new JButton(ds.get(1).getBrand());
     private JButton drink3 = new JButton(ds.get(2).getBrand());
@@ -31,7 +30,7 @@ public class CustomerPanel {
     private JButton drink5 = new JButton(ds.get(4).getBrand());
     private JLabel changeLabel = new JLabel("No Change Available");
     private JButton terminate = new JButton("Terminate and Return Cash");
-    private JLabel collectCoinLabel = new JLabel("Collect Coins:           " + Integer.toString(collectCoin) + "  c");
+    private JLabel collectCoinLabel = new JLabel();
     private JLabel collectCanLabel = new JLabel("Collect Can Here:    " + "No Can");
     private JLabel drinkAvailabity1 = new JLabel("Not in Stock");
     private JLabel drinkAvailabity2 = new JLabel("Not in Stock");
@@ -47,8 +46,9 @@ public class CustomerPanel {
 		
 		JPanel panel = new JPanel();
 		frame.add(panel);
-		
 		panel.setLayout(null);
+		
+		restart();
 
         JLabel titleLabel = new JLabel("Soft Drink Dispenser");
         titleLabel.setBounds(100,20,300,50);
@@ -70,12 +70,6 @@ public class CustomerPanel {
         coin4.setBounds(240, 120, 80, 40);
         coin5.setBounds(320, 120, 80, 40);
         coin6.setBounds(400, 120, 80, 40);
-        coin1.setEnabled(false);
-        coin2.setEnabled(false);
-        coin3.setEnabled(false);
-        coin4.setEnabled(false);
-        coin5.setEnabled(false);
-        coin6.setEnabled(false);
         coin1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		enterCoin(1.7);
@@ -115,12 +109,6 @@ public class CustomerPanel {
         
         totalLabel.setBounds(100, 180, 300, 10);
         panel.add(totalLabel);
-        
-        drink1.setEnabled(!checkAvailability(0));
-        drink2.setEnabled(!checkAvailability(1));
-        drink3.setEnabled(!checkAvailability(2));
-        drink4.setEnabled(!checkAvailability(3));
-        drink5.setEnabled(!checkAvailability(4));
         drink1.setBounds(0, 200, 160, 40);
         drink2.setBounds(0, 240, 160, 40);
         drink3.setBounds(0, 280, 160, 40);
@@ -183,11 +171,6 @@ public class CustomerPanel {
         drinkAvailabity3.setForeground(Color.red);
         drinkAvailabity4.setForeground(Color.red);
         drinkAvailabity5.setForeground(Color.red);
-        drinkAvailabity1.setVisible(checkAvailability(0));
-        drinkAvailabity2.setVisible(checkAvailability(1));
-        drinkAvailabity3.setVisible(checkAvailability(2));
-        drinkAvailabity4.setVisible(checkAvailability(3));
-        drinkAvailabity5.setVisible(checkAvailability(4));
         panel.add(drinkAvailabity1);
         panel.add(drinkAvailabity2);
         panel.add(drinkAvailabity3);
@@ -210,7 +193,7 @@ public class CustomerPanel {
         collectCoinLabel.setBounds(150, 500, 200, 20);
         collectCanLabel.setBounds(150, 530, 200, 20);
         panel.add(collectCanLabel);
-        panel.add(collectCoinLabel);        
+        panel.add(collectCoinLabel);
         
         frame.setVisible(true);
 	}
@@ -221,12 +204,11 @@ public class CustomerPanel {
 		else {
 			invalidLabel.setVisible(false);
 			insertedMoney += value;
-			switch(value) {
-			case 5: coins[0]++;break;
-			case 10: coins[1]++;break;
-			case 20: coins[2]++;break;
-			case 50: coins[3]++;break;
-			case 100: coins[4]++;break;
+			for(Coin c : cs) {
+				if(c.getValue() == value) {
+					c.setQuantity(c.getQuantity() + 1);
+					break;
+				}
 			}
 		}
 		totalLabel.setText("Total Money Inserted:  " + Integer.toString(insertedMoney) + "  c");
@@ -258,9 +240,6 @@ public class CustomerPanel {
 	public void purchase() {
 		terminate.setEnabled(false);
 		d.setQuantity(d.getQuantity() - 1);
-		for (int i = 0; i < 5; i++) {
-			cs.get(i).setQuantity(cs.get(i).getQuantity() + coins[i]);
-		}
 		collectCoin = insertedMoney - d.getPrice();
 		collectCanLabel.setText("Collect Can Here:    " + d.getBrand());
 		changeLabel.setVisible(vmcs.makeChange(collectCoin));
@@ -269,6 +248,7 @@ public class CustomerPanel {
 	
 	public void terminate() {
 		collectCoin = insertedMoney;
+		restoreMemento();
 		restart();
 	}
 	
@@ -276,7 +256,6 @@ public class CustomerPanel {
 		collectCoinLabel.setText("Collect Coins:           " + Integer.toString(collectCoin) + "  c");
 		insertedMoney = 0;
 		totalLabel.setText("Total Money Inserted:  " + Integer.toString(insertedMoney) + "  c");
-		for (int i = 0; i < 5; i++) coins[i] = 0;
 		coin1.setEnabled(false);
 	    coin2.setEnabled(false);
 	    coin3.setEnabled(false);
@@ -294,5 +273,22 @@ public class CustomerPanel {
         drinkAvailabity4.setVisible(checkAvailability(3));
         drinkAvailabity5.setVisible(checkAvailability(4));
 	    terminate.setEnabled(true);
+	    saveMemento();
+	}
+	
+	public void saveMemento() {
+		ArrayList<Coin> currentCoins = new ArrayList<Coin>();
+		for(Coin c : cs) {
+			currentCoins.add(new Coin(c.getValue(), c.getWeight(), c.getQuantity()));
+		}
+		CoinsMemento cm = new CoinsMemento(currentCoins);
+		vmcs.addMemento(cm);
+	}
+	
+	public void restoreMemento() {
+		CoinsMemento cm = vmcs.getMemento();
+		for(int i = 0; i < 5; i++) {
+			cs.get(i).setQuantity(cm.getCoins().get(i).getQuantity());
+		}
 	}
 }

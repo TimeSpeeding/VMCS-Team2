@@ -6,6 +6,7 @@ import java.util.Iterator;
 public class MainVendingMachineControl {
 	public static ArrayList<Drink> drinks = new ArrayList<Drink>();
 	public static ArrayList<Coin> coins = new ArrayList<Coin>();
+	private ArrayList<CoinsMemento> mementoList = new ArrayList<CoinsMemento>();
  	
 	public static String savedPassword="1234";
 	
@@ -50,6 +51,13 @@ public class MainVendingMachineControl {
 			}
 		}
 		return false;
+	}
+	
+	public void addMemento(CoinsMemento coinsMemento) {
+		mementoList.add(coinsMemento);
+	}
+	public CoinsMemento getMemento() {
+		return mementoList.get(mementoList.size() - 1);
 	}
 	
 	public String verifyPassword(String password) {
