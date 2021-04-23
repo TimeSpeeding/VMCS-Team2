@@ -8,8 +8,6 @@ import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
-
 public class MaintainerPanel {
 
 	public  String passwordStatus="";
@@ -25,7 +23,7 @@ public class MaintainerPanel {
 		
 	 JLabel Quantity1=new JLabel();
 	
-public  void display() {
+public void display() {
 	
 	JFrame frame = new JFrame();
 	frame.setSize(500,600);
@@ -67,7 +65,7 @@ public  void display() {
 				drink4.setEnabled(true);
 				drink5.setEnabled(true);
 			}
-			System.out.println(passwordStatus);		
+			//System.out.println(passwordStatus);		
 			res.setVisible(true);
 			res.setText(passwordStatus);
 			content.revalidate();
@@ -216,7 +214,7 @@ drink5.addActionListener(new ActionListener() {
 	public void actionPerformed(ActionEvent e) {
 		Integer Quantity;
 		Integer Price;
-		System.out.println(ds.get(4).getQuantity());
+		//System.out.println(ds.get(4).getQuantity());
 		Price=getDrinksPrice(drink5.getText());
 		Quantity=getDrinksQuantity(drink5.getText());
 		    	 Quantity1.setText(Integer.toString(ds.get(4).getQuantity()));

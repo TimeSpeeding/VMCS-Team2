@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class MainVendingMachineControl {
 	public static ArrayList<Drink> drinks = new ArrayList<Drink>();
-	public static ArrayList<Coin> coins =new ArrayList<Coin>();
+	public static ArrayList<Coin> coins = new ArrayList<Coin>();
  	
 	public static String savedPassword="1234";
 	
@@ -29,6 +29,28 @@ public class MainVendingMachineControl {
 		coins.add(new Coin(100, 7.62, 10));
 	}
 	
+	public boolean getDrinkAvailability(int i) {
+		if (drinks.get(i).getQuantity() == 0) return true;
+		else return false;
+	}
+	
+	public boolean makeChange(int change) {
+		while(change > 0) {
+			if ((change < 10 && coins.get(0).getQuantity() == 0) || (change < 20 && coins.get(0).getQuantity() == 0 && coins.get(1).getQuantity() == 0)
+					|| (change < 50 && coins.get(0).getQuantity() == 0 && coins.get(1).getQuantity() == 0 && coins.get(2).getQuantity() == 0)
+					|| (change < 100 && coins.get(0).getQuantity() == 0 && coins.get(1).getQuantity() == 0 && coins.get(2).getQuantity() == 0 && coins.get(3).getQuantity() == 0)) {
+				return true;
+			}
+			for(int i = 4; i >= 0; i--) {
+				if(coins.get(i).getValue() <= change && coins.get(i).getQuantity() > 0) {
+					change -= coins.get(i).getValue();
+					coins.get(i).setQuantity(coins.get(i).getQuantity() - 1);
+					break;
+				}
+			}
+		}
+		return false;
+	}
 	
 	public String verifyPassword(String password) {
 		if (password.equals(savedPassword)){
@@ -65,7 +87,7 @@ public class MainVendingMachineControl {
 		    	 Quant= item.getQuantity();
 		    	 break;
 		      }
-}
+		 }
 		 return Quant;
 		
 	}
@@ -80,11 +102,11 @@ public class MainVendingMachineControl {
 		    	 Price= item.getPrice();
 		    	 break;
 		      }
-}
+		 }
 		 return Price;
 		
 	}
-	}
+}
 		      
 		     
 

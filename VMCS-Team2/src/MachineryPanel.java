@@ -12,17 +12,17 @@ public class MachineryPanel {
 	private ArrayList<Drink> dl = MainVendingMachineControl.drinks;
 	private ArrayList<Coin> cl = MainVendingMachineControl.coins;
 
-	private JTextField coin1Num = new JTextField(Integer.toString(cl.get(0).getQuantity()));
-	private JTextField coin2Num = new JTextField(Integer.toString(cl.get(1).getQuantity()));
-	private JTextField coin3Num = new JTextField(Integer.toString(cl.get(2).getQuantity()));
-	private JTextField coin4Num = new JTextField(Integer.toString(cl.get(3).getQuantity()));
-	private JTextField coin5Num = new JTextField(Integer.toString(cl.get(4).getQuantity()));
+	private JTextField coin1Num = new JTextField();
+	private JTextField coin2Num = new JTextField();
+	private JTextField coin3Num = new JTextField();
+	private JTextField coin4Num = new JTextField();
+	private JTextField coin5Num = new JTextField();
 
-	private JTextField drink1Num = new JTextField(Integer.toString(dl.get(0).getQuantity()));
-	private JTextField drink2Num = new JTextField(Integer.toString(dl.get(1).getQuantity()));
-	private JTextField drink3Num = new JTextField(Integer.toString(dl.get(2).getQuantity()));
-	private JTextField drink4Num = new JTextField(Integer.toString(dl.get(3).getQuantity()));
-	private JTextField drink5Num = new JTextField(Integer.toString(dl.get(4).getQuantity()));
+	private JTextField drink1Num = new JTextField();
+	private JTextField drink2Num = new JTextField();
+	private JTextField drink3Num = new JTextField();
+	private JTextField drink4Num = new JTextField();
+	private JTextField drink5Num = new JTextField();
 	private JButton update = new JButton("Update");
 	
 	public void display() {
@@ -73,23 +73,28 @@ public class MachineryPanel {
 		coin5.setSize(50, 44);
 		coin5.setLocation(200, 326);
 		coin5.setFont(cashFont);
-		
+
+		coin1Num.setText(Integer.toString(cl.get(0).getQuantity()));
 		coin1Num.setSize(80, 30);
 		coin1Num.setLocation(250, 150);
 		coin1Num.setEnabled(false);
-		
+
+		coin2Num.setText(Integer.toString(cl.get(1).getQuantity()));
 		coin2Num.setSize(80, 30);
 		coin2Num.setLocation(250, 194);
 		coin2Num.setEnabled(false);
-		
+
+		coin3Num.setText(Integer.toString(cl.get(2).getQuantity()));
 		coin3Num.setSize(80, 30);
 		coin3Num.setLocation(250, 238);
 		coin3Num.setEnabled(false);
-			
+
+		coin4Num.setText(Integer.toString(cl.get(3).getQuantity()));
 		coin4Num.setSize(80, 30);
 		coin4Num.setLocation(250, 282);
 		coin4Num.setEnabled(false);
 		
+		coin5Num.setText(Integer.toString(cl.get(4).getQuantity()));
 		coin5Num.setSize(80, 30);
 		coin5Num.setLocation(250, 326);
 		coin5Num.setEnabled(false);
@@ -123,23 +128,28 @@ public class MachineryPanel {
 		drink5.setSize(80, 44);
 		drink5.setLocation(140, 576);
 		drink5.setFont(drinkFont);
-		
+
+		drink1Num.setText(Integer.toString(dl.get(0).getQuantity()));
 		drink1Num.setSize(80, 30);
 		drink1Num.setLocation(250, 410);
 		drink1Num.setEnabled(false);
-		
+
+		drink2Num.setText(Integer.toString(dl.get(1).getQuantity()));
 		drink2Num.setSize(80, 30);
 		drink2Num.setLocation(250, 454);
 		drink2Num.setEnabled(false);
-		
+
+		drink3Num.setText(Integer.toString(dl.get(2).getQuantity()));
 		drink3Num.setSize(80, 30);
 		drink3Num.setLocation(250, 498);
 		drink3Num.setEnabled(false);
-		
+
+		drink4Num.setText(Integer.toString(dl.get(3).getQuantity()));
 		drink4Num.setSize(80, 30);
 		drink4Num.setLocation(250, 542);
 		drink4Num.setEnabled(false);
-		
+
+		drink5Num.setText(Integer.toString(dl.get(4).getQuantity()));
 		drink5Num.setSize(80, 30);
 		drink5Num.setLocation(250, 586);
 		drink5Num.setEnabled(false);
