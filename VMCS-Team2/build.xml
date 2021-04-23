@@ -9,22 +9,32 @@
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
     <path id="JUnit 4.libraryclasspath">
-        <pathelement location="lib/org.junit_4.13.0.v20200204-1500.jar"/>
-        <pathelement location="lib/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
+        <pathelement location="C:/Users/MSI-PC/.p2/pool/plugins/org.junit_4.13.0.v20200204-1500.jar"/>
+        <pathelement location="C:/Users/MSI-PC/.p2/pool/plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
     </path>
     <path id="VMCS-Team2.classpath">
         <pathelement location="bin"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+    </path>
+    <path id="run.CustomerPanel.classpath">
+        <path refid="VMCS-Team2.classpath"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+    </path>
+    <path id="run.MainVendingMachineControl.classpath">
+        <path refid="VMCS-Team2.classpath"/>
         <path refid="JUnit 4.libraryclasspath"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="test">
+                <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -56,5 +66,15 @@
     <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
+    </target>
+    <target name="CustomerPanel">
+        <java classname="CustomerPanel" failonerror="true" fork="yes">
+            <classpath refid="run.CustomerPanel.classpath"/>
+        </java>
+    </target>
+    <target name="MainVendingMachineControl">
+        <java classname="MainVendingMachineControl" failonerror="true" fork="yes">
+            <classpath refid="run.MainVendingMachineControl.classpath"/>
+        </java>
     </target>
 </project>
