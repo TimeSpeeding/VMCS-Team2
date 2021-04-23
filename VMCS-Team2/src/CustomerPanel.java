@@ -291,7 +291,7 @@ public class CustomerPanel {
 		collectCoinLabel.setText("Collect Coins:           " + Integer.toString(collectCoin) + "  c");
 		insertedMoney = 0;
 		totalLabel.setText("Total Money Inserted:  " + Integer.toString(insertedMoney) + "  c");
-		for (int i = 0; i < 4; i++) coins[i] = 0;
+		for (int i = 0; i < 5; i++) coins[i] = 0;
 		coin1.setEnabled(false);
 	    coin2.setEnabled(false);
 	    coin3.setEnabled(false);
@@ -303,5 +303,6 @@ public class CustomerPanel {
 	    drink3.setEnabled(!checkAvailability(2));
 	    drink4.setEnabled(!checkAvailability(3));
 	    drink5.setEnabled(!checkAvailability(4));
+	    terminate.setEnabled(true);
 	}
 }

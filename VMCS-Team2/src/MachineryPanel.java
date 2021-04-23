@@ -11,6 +11,19 @@ public class MachineryPanel {
 	
 	private ArrayList<Drink> dl = MainVendingMachineControl.drinks;
 	private ArrayList<Coin> cl = MainVendingMachineControl.coins;
+
+	private JTextField coin1Num = new JTextField(Integer.toString(cl.get(0).getQuantity()));
+	private JTextField coin2Num = new JTextField(Integer.toString(cl.get(1).getQuantity()));
+	private JTextField coin3Num = new JTextField(Integer.toString(cl.get(2).getQuantity()));
+	private JTextField coin4Num = new JTextField(Integer.toString(cl.get(3).getQuantity()));
+	private JTextField coin5Num = new JTextField(Integer.toString(cl.get(4).getQuantity()));
+
+	private JTextField drink1Num = new JTextField(Integer.toString(dl.get(0).getQuantity()));
+	private JTextField drink2Num = new JTextField(Integer.toString(dl.get(1).getQuantity()));
+	private JTextField drink3Num = new JTextField(Integer.toString(dl.get(2).getQuantity()));
+	private JTextField drink4Num = new JTextField(Integer.toString(dl.get(3).getQuantity()));
+	private JTextField drink5Num = new JTextField(Integer.toString(dl.get(4).getQuantity()));
+	private JButton update = new JButton("Update");
 	
 	public void display() {
 		JFrame frame = new JFrame("MachineryPanel");
@@ -61,27 +74,22 @@ public class MachineryPanel {
 		coin5.setLocation(200, 326);
 		coin5.setFont(cashFont);
 		
-		JTextField coin1Num = new JTextField(cl.get(0).getQuantity());
 		coin1Num.setSize(80, 30);
 		coin1Num.setLocation(250, 150);
 		coin1Num.setEnabled(false);
 		
-		JTextField coin2Num = new JTextField(cl.get(1).getQuantity());
 		coin2Num.setSize(80, 30);
 		coin2Num.setLocation(250, 194);
 		coin2Num.setEnabled(false);
 		
-		JTextField coin3Num = new JTextField(cl.get(2).getQuantity());
 		coin3Num.setSize(80, 30);
 		coin3Num.setLocation(250, 238);
 		coin3Num.setEnabled(false);
 			
-		JTextField coin4Num = new JTextField(cl.get(3).getQuantity());
 		coin4Num.setSize(80, 30);
 		coin4Num.setLocation(250, 282);
 		coin4Num.setEnabled(false);
 		
-		JTextField coin5Num = new JTextField(cl.get(4).getQuantity());
 		coin5Num.setSize(80, 30);
 		coin5Num.setLocation(250, 326);
 		coin5Num.setEnabled(false);
@@ -111,54 +119,38 @@ public class MachineryPanel {
 		drink4.setLocation(140, 532);
 		drink4.setFont(drinkFont);
 		
-		JLabel drink5 = new JLabel("Pepsi-cola");
+		JLabel drink5 = new JLabel("Coca-cola");
 		drink5.setSize(80, 44);
 		drink5.setLocation(140, 576);
 		drink5.setFont(drinkFont);
 		
-		JTextField drink1Num = new JTextField(dl.get(0).getQuantity());
 		drink1Num.setSize(80, 30);
 		drink1Num.setLocation(250, 410);
 		drink1Num.setEnabled(false);
 		
-		JTextField drink2Num = new JTextField(dl.get(1).getQuantity());
 		drink2Num.setSize(80, 30);
 		drink2Num.setLocation(250, 454);
 		drink2Num.setEnabled(false);
 		
-		JTextField drink3Num = new JTextField(dl.get(2).getQuantity());
 		drink3Num.setSize(80, 30);
 		drink3Num.setLocation(250, 498);
 		drink3Num.setEnabled(false);
 		
-		JTextField drink4Num = new JTextField(dl.get(3).getQuantity());
 		drink4Num.setSize(80, 30);
 		drink4Num.setLocation(250, 542);
 		drink4Num.setEnabled(false);
 		
-		JTextField drink5Num = new JTextField(dl.get(4).getQuantity());
 		drink5Num.setSize(80, 30);
 		drink5Num.setLocation(250, 586);
 		drink5Num.setEnabled(false);
 		
-		JButton update = new JButton("Update");
 		update.setSize(80, 40);
 		update.setLocation(200, 660);
 		update.setVisible(false);
 		update.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cl.get(0).setQuantity(Integer.valueOf(coin1Num.getText()).intValue());
-				cl.get(1).setQuantity(Integer.valueOf(coin2Num.getText()).intValue());
-				cl.get(2).setQuantity(Integer.valueOf(coin3Num.getText()).intValue());
-				cl.get(3).setQuantity(Integer.valueOf(coin4Num.getText()).intValue());
-				cl.get(4).setQuantity(Integer.valueOf(coin5Num.getText()).intValue());
-				
-				dl.get(0).setQuantity(Integer.valueOf(drink1Num.getText()).intValue());
-				dl.get(1).setQuantity(Integer.valueOf(drink2Num.getText()).intValue());
-				dl.get(2).setQuantity(Integer.valueOf(drink3Num.getText()).intValue());
-				dl.get(3).setQuantity(Integer.valueOf(drink4Num.getText()).intValue());
-				dl.get(4).setQuantity(Integer.valueOf(drink5Num.getText()).intValue());
+				updateValue();
 			}
 		});
 		
@@ -171,17 +163,7 @@ public class MachineryPanel {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				boolean mark = lock.isSelected();
-				coin1Num.setEnabled(!mark);
-				coin2Num.setEnabled(!mark);
-				coin3Num.setEnabled(!mark);
-				coin4Num.setEnabled(!mark);
-				coin5Num.setEnabled(!mark);
-				drink1Num.setEnabled(!mark);
-				drink2Num.setEnabled(!mark);
-				drink3Num.setEnabled(!mark);
-				drink4Num.setEnabled(!mark);
-				drink5Num.setEnabled(!mark);
-				update.setVisible(!mark);
+				changeDoorStatus(!mark);
 			}
 		});
 		
@@ -210,6 +192,34 @@ public class MachineryPanel {
 		container.add(drink5Num);
 		container.add(update);
 		container.add(lock);
+	}
+	
+	public void updateValue() {
+		cl.get(0).setQuantity(Integer.valueOf(coin1Num.getText()).intValue());
+		cl.get(1).setQuantity(Integer.valueOf(coin2Num.getText()).intValue());
+		cl.get(2).setQuantity(Integer.valueOf(coin3Num.getText()).intValue());
+		cl.get(3).setQuantity(Integer.valueOf(coin4Num.getText()).intValue());
+		cl.get(4).setQuantity(Integer.valueOf(coin5Num.getText()).intValue());
+		
+		dl.get(0).setQuantity(Integer.valueOf(drink1Num.getText()).intValue());
+		dl.get(1).setQuantity(Integer.valueOf(drink2Num.getText()).intValue());
+		dl.get(2).setQuantity(Integer.valueOf(drink3Num.getText()).intValue());
+		dl.get(3).setQuantity(Integer.valueOf(drink4Num.getText()).intValue());
+		dl.get(4).setQuantity(Integer.valueOf(drink5Num.getText()).intValue());
+	}
+	
+	public void changeDoorStatus(boolean isDoorOpened) {
+		coin1Num.setEnabled(isDoorOpened);
+		coin2Num.setEnabled(isDoorOpened);
+		coin3Num.setEnabled(isDoorOpened);
+		coin4Num.setEnabled(isDoorOpened);
+		coin5Num.setEnabled(isDoorOpened);
+		drink1Num.setEnabled(isDoorOpened);
+		drink2Num.setEnabled(isDoorOpened);
+		drink3Num.setEnabled(isDoorOpened);
+		drink4Num.setEnabled(isDoorOpened);
+		drink5Num.setEnabled(isDoorOpened);
+		update.setVisible(isDoorOpened);
 	}
 	
 }
