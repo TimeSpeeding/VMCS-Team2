@@ -24,13 +24,7 @@ public class MaintainerPanel {
 	
 	static JLabel Quantity1=new JLabel();
 	
-public static void main(String [] args) {
-	start();
-	System.out.println(ds);
-
-}
-
-public static void start() {
+public static void display() {
 	
 	JFrame frame = new JFrame();
 	frame.setSize(500,600);

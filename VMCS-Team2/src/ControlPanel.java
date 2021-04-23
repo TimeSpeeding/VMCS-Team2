@@ -61,6 +61,11 @@ public class ControlPanel {
 		actCustomer.setLocation(10, 190);
 		
 		actMaintainer.setEnabled(false);
+		actMaintainer.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		maintainerPanel.display();
+             }
+        });
 		actMaintainer.setSize(460, 70);
 		actMaintainer.setLocation(10,260);
 		
