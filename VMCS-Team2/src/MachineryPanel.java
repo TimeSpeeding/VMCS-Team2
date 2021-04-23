@@ -12,12 +12,12 @@ public class MachineryPanel {
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				machineryGUI();
+				machineryPanel();
 			}
 		});
 	}
 	
-	private static void machineryGUI() {
+	private static void machineryPanel() {
 		JFrame frame = new JFrame("MachineryPanel");
 		frame.setSize(500, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
