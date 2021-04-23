@@ -12,19 +12,20 @@ import javax.swing.*;
 
 public class MaintainerPanel {
 
-	public static String passwordStatus="";
-	static private ArrayList<Drink> ds = MainVendingMachineControl.drinks;
-	static MainVendingMachineControl vendingmachineControl= new MainVendingMachineControl();
+	public  String passwordStatus="";
+	 private ArrayList<Drink> ds = MainVendingMachineControl.drinks;
+	 MainVendingMachineControl vendingmachineControl= new MainVendingMachineControl();
 	
-	static JButton drink1=new JButton("Coca-Cola");
-	static JButton drink2=new JButton("Fanta");
-	static JButton drink3=new JButton("Sarsi");
-	static JButton drink4=new JButton("Soya Bean");
-	static JButton drink5=new JButton("Coca-Cola");
+	 JButton drink1=new JButton(ds.get(0).getBrand());
+	 JButton drink2=new JButton(ds.get(1).getBrand());
+	 JButton drink3=new JButton(ds.get(2).getBrand());
+	 JButton drink4=new JButton(ds.get(3).getBrand());
+	 JButton drink5=new JButton(ds.get(4).getBrand());
+	 
+		
+	 JLabel Quantity1=new JLabel();
 	
-	static JLabel Quantity1=new JLabel();
-	
-public static void display() {
+public  void display() {
 	
 	JFrame frame = new JFrame();
 	frame.setSize(500,600);
@@ -52,6 +53,20 @@ public static void display() {
 		public void actionPerformed(ActionEvent e) {
 			String password = Password.getText();
 			passwordStatus=verifyPassword(password);
+			if(passwordStatus.equals("Invalid")) {
+				drink1.setEnabled(false);
+				drink2.setEnabled(false);
+				drink3.setEnabled(false);
+				drink4.setEnabled(false);
+				drink5.setEnabled(false);
+			}else
+			{
+				drink1.setEnabled(true);
+				drink2.setEnabled(true);
+				drink3.setEnabled(true);
+				drink4.setEnabled(true);
+				drink5.setEnabled(true);
+			}
 			System.out.println(passwordStatus);		
 			res.setVisible(true);
 			res.setText(passwordStatus);
@@ -72,6 +87,11 @@ drink2.setBounds(90, 120, 100, 30);
 drink3.setBounds(190, 120, 100, 30);
 drink4.setBounds(290, 120, 100, 30);
 drink5.setBounds(390, 120, 100, 30);
+drink1.setEnabled(false);
+drink2.setEnabled(false);
+drink3.setEnabled(false);
+drink4.setEnabled(false);
+drink5.setEnabled(false);
 
 Quantity1.setBounds(200, 160, 100, 15);
 Quantity1.setVisible(false);
@@ -196,9 +216,10 @@ drink5.addActionListener(new ActionListener() {
 	public void actionPerformed(ActionEvent e) {
 		Integer Quantity;
 		Integer Price;
+		System.out.println(ds.get(4).getQuantity());
 		Price=getDrinksPrice(drink5.getText());
 		Quantity=getDrinksQuantity(drink5.getText());
-		    	 Quantity1.setText(Integer.toString(Quantity));
+		    	 Quantity1.setText(Integer.toString(ds.get(4).getQuantity()));
 		    	 Quantity1.setVisible(true);
 		    	 content.revalidate();
 		    	 SetPriceLabel.setVisible(true);
@@ -224,24 +245,24 @@ content.add(drink5);
 frame.setVisible(true);
 	
 }
-public static String verifyPassword(String Password) {
+public  String verifyPassword(String Password) {
 	
 	return(vendingmachineControl.verifyPassword(Password));
 }
 
 
 
-public static Integer getDrinksQuantity(String brand) {
+public  Integer getDrinksQuantity(String brand) {
 	return vendingmachineControl.getdrinksQuantity(brand);
 	
 }
 
-public static Integer getDrinksPrice(String brand) {
+public  Integer getDrinksPrice(String brand) {
 	return vendingmachineControl.getdrinksPrice(brand);
 	
 }
 
-public static String setNewPrice(String brand,String price) {
+public  String setNewPrice(String brand,String price) {
 	return vendingmachineControl.setNewPrice(brand, price);	
 	
 }

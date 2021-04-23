@@ -32,7 +32,7 @@ public class MainVendingMachineControl {
 	
 	public String verifyPassword(String password) {
 		if (password.equals(savedPassword)){
-			return "Valid Pass";
+			return "Valid Password";
 		}
 		else {
 			return "Invalid";
@@ -63,6 +63,7 @@ public class MainVendingMachineControl {
 		      Drink item = iter.next();
 		     if(brand.equals(item.getBrand())) {
 		    	 Quant= item.getQuantity();
+		    	 break;
 		      }
 }
 		 return Quant;
