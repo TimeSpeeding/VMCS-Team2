@@ -1,22 +1,40 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class CustomerPanel {
 	
-	private int currentPrice = 0;
 	private int insertedMoney = 0;
+	private int collectCoin = 0;
+	private ArrayList<Drink> ds = MainVendingMachineControl.drinks;
+	private ArrayList<Coin> cs = MainVendingMachineControl.coins;
+	private int[] coins = {0,0,0,0,0};
+	
+	private Drink d = null;
 
-    private JButton coin1=new JButton("5c");
-    private JButton coin2=new JButton("10c");
-    private JButton coin3=new JButton("20c");
-    private JButton coin4=new JButton("50c");
-    private JButton coin5=new JButton("$1");
-    private JButton coin6=new JButton("Invalid");
+    private JButton coin1 = new JButton("5c");
+    private JButton coin2 = new JButton("10c");
+    private JButton coin3 = new JButton("20c");
+    private JButton coin4 = new JButton("50c");
+    private JButton coin5 = new JButton("$1");
+    private JButton coin6 = new JButton("Invalid");
+    private JLabel invalidLabel = new JLabel("Invalid Coin");
+    private JLabel totalLabel = new JLabel("Total Money Inserted:  " + Integer.toString(insertedMoney) + "  c");
+    private JButton drink1 = new JButton(ds.get(0).getBrand());
+    private JButton drink2 = new JButton(ds.get(1).getBrand());
+    private JButton drink3 = new JButton(ds.get(2).getBrand());
+    private JButton drink4 = new JButton(ds.get(3).getBrand());
+    private JButton drink5 = new JButton(ds.get(4).getBrand());
+    private JButton terminate = new JButton("Terminate and Return Cash");
+    private JLabel collectCoinLabel = new JLabel("Collect Coins:           " + Integer.toString(collectCoin) + "  c");
+    private JLabel collectCanLabel = new JLabel("Collect Can Here:    " + "No Can");
 
 	
-	public void main(String[] args) {
+	public void display() {
+		
 		JFrame frame = new JFrame("VMCS - Customer Panel");
 		frame.setSize(500, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,8 +53,7 @@ public class CustomerPanel {
         coinLabel.setBounds(10,100,150,10);
         panel.add(coinLabel);
         
-        JLabel invalidLabel = new JLabel("Invalid Coin");
-        invalidLabel.setBounds(200,170,100,10);
+        invalidLabel.setBounds(200,160,100,10);
         invalidLabel.setForeground(Color.red);
         invalidLabel.setVisible(false);
         panel.add(invalidLabel);
@@ -47,39 +64,40 @@ public class CustomerPanel {
         coin4.setBounds(240, 120, 80, 40);
         coin5.setBounds(320, 120, 80, 40);
         coin6.setBounds(400, 120, 80, 40);
+        coin1.setEnabled(false);
+        coin2.setEnabled(false);
+        coin3.setEnabled(false);
+        coin4.setEnabled(false);
+        coin5.setEnabled(false);
+        coin6.setEnabled(false);
         coin1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                invalidLabel.setVisible(false);
-        		enterCoin(5);
+        		enterCoin(1.7);
              }
         });
         coin2.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                invalidLabel.setVisible(false);
-        		enterCoin(10);
+        		enterCoin(2.36);
              }
         });
         coin3.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                invalidLabel.setVisible(false);
-        		enterCoin(20);
+        		enterCoin(3.85);
              }
         });
         coin4.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                invalidLabel.setVisible(false);
-        		enterCoin(50);
+        		enterCoin(6.56);
              }
         });
         coin5.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                invalidLabel.setVisible(false);
-        		enterCoin(100);
+        		enterCoin(7.62);
              }
         });
         coin6.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                invalidLabel.setVisible(true);        		
+        		enterCoin(6.66);
              }
         });
         panel.add(coin1);
@@ -89,14 +107,153 @@ public class CustomerPanel {
         panel.add(coin5);
         panel.add(coin6);
         
+        totalLabel.setBounds(100, 180, 300, 10);
+        panel.add(totalLabel);
         
+        drink1.setEnabled(!checkAvaliability(0));
+        drink2.setEnabled(!checkAvaliability(1));
+        drink3.setEnabled(!checkAvaliability(2));
+        drink4.setEnabled(!checkAvaliability(3));
+        drink5.setEnabled(!checkAvaliability(4));
+        drink1.setBounds(0, 200, 160, 40);
+        drink2.setBounds(0, 240, 160, 40);
+        drink3.setBounds(0, 280, 160, 40);
+        drink4.setBounds(0, 320, 160, 40);
+        drink5.setBounds(0, 360, 160, 40);
+        drink1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		selectBrand(0);
+             }
+        });
+        drink2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		selectBrand(1);
+             }
+        });
+        drink3.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		selectBrand(2);
+             }
+        });
+        drink4.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		selectBrand(3);
+             }
+        });
+        drink5.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		selectBrand(4);
+             }
+        });
+        panel.add(drink1);
+        panel.add(drink2);
+        panel.add(drink3);
+        panel.add(drink4);
+        panel.add(drink5);
+        
+        JLabel drinkPrice1 = new JLabel(Integer.toString(ds.get(0).getPrice()) + "c");
+        JLabel drinkPrice2 = new JLabel(Integer.toString(ds.get(1).getPrice()) + "c");
+        JLabel drinkPrice3 = new JLabel(Integer.toString(ds.get(2).getPrice()) + "c");
+        JLabel drinkPrice4 = new JLabel(Integer.toString(ds.get(3).getPrice()) + "c");
+        JLabel drinkPrice5 = new JLabel(Integer.toString(ds.get(4).getPrice()) + "c");
+        drinkPrice1.setBounds(200, 200, 40, 40);
+        drinkPrice2.setBounds(200, 240, 40, 40);
+        drinkPrice3.setBounds(200, 280, 40, 40);
+        drinkPrice4.setBounds(200, 320, 40, 40);
+        drinkPrice5.setBounds(200, 360, 40, 40);
+        panel.add(drinkPrice1);
+        panel.add(drinkPrice2);
+        panel.add(drinkPrice3);
+        panel.add(drinkPrice4);
+        panel.add(drinkPrice5);
+        
+        JLabel drinkAvaliabity1 = new JLabel("Not in Stock");
+        JLabel drinkAvaliabity2 = new JLabel("Not in Stock");
+        JLabel drinkAvaliabity3 = new JLabel("Not in Stock");
+        JLabel drinkAvaliabity4 = new JLabel("Not in Stock");
+        JLabel drinkAvaliabity5 = new JLabel("Not in Stock");
+        drinkAvaliabity1.setBounds(300, 200, 120, 40);
+        drinkAvaliabity2.setBounds(300, 240, 120, 40);
+        drinkAvaliabity3.setBounds(300, 280, 120, 40);
+        drinkAvaliabity4.setBounds(300, 320, 120, 40);
+        drinkAvaliabity5.setBounds(300, 360, 120, 40);
+        drinkAvaliabity1.setForeground(Color.red);
+        drinkAvaliabity2.setForeground(Color.red);
+        drinkAvaliabity3.setForeground(Color.red);
+        drinkAvaliabity4.setForeground(Color.red);
+        drinkAvaliabity5.setForeground(Color.red);
+        drinkAvaliabity1.setVisible(checkAvaliability(0));
+        drinkAvaliabity2.setVisible(checkAvaliability(1));
+        drinkAvaliabity3.setVisible(checkAvaliability(2));
+        drinkAvaliabity4.setVisible(checkAvaliability(3));
+        drinkAvaliabity5.setVisible(checkAvaliability(4));
+        panel.add(drinkAvaliabity1);
+        panel.add(drinkAvaliabity2);
+        panel.add(drinkAvaliabity3);
+        panel.add(drinkAvaliabity4);
+        panel.add(drinkAvaliabity5);
+        
+        terminate.setBounds(150, 420, 200, 20);
+        terminate.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		terminate();
+             }
+        });
+        panel.add(terminate);
+        
+        collectCoinLabel.setBounds(150, 460, 200, 20);
+        collectCanLabel.setBounds(150, 490, 200, 20);
+        panel.add(collectCanLabel);
+        panel.add(collectCoinLabel);        
         
         frame.setVisible(true);
 	}
 	
-	public void enterCoin (int value) {
+	public void enterCoin (double weight) {
+		int value = CoinMonitor.verifyCoin(weight);
+		if (value == 0) invalidLabel.setVisible(true);
+		else {
+			invalidLabel.setVisible(false);
+			insertedMoney += value;
+			switch(value) {
+			case 5: coins[0]++;
+			case 10: coins[1]++;
+			case 20: coins[2]++;
+			case 50: coins[3]++;
+			case 100: coins[4]++;
+			}
+		}
+		totalLabel.setText("Total Money Inserted:  " + Integer.toString(insertedMoney) + "  c");
+		if (insertedMoney >= d.getPrice()) purchase();
 		return;
 	}
 	
+	public void selectBrand (int i) {
+		d = ds.get(i);
+        coin1.setEnabled(true);
+        coin2.setEnabled(true);
+        coin3.setEnabled(true);
+        coin4.setEnabled(true);
+        coin5.setEnabled(true);
+        coin6.setEnabled(true);
+        drink1.setEnabled(false);
+        drink2.setEnabled(false);
+        drink3.setEnabled(false);
+        drink4.setEnabled(false);
+        drink5.setEnabled(false);
+		return;
+	}
 	
+	public boolean checkAvaliability(int i) {
+		if (ds.get(i).getQuantity() == 0) return true;
+		else return false;
+	}
+	
+	public void purchase() {
+		
+	}
+	
+	public void terminate() {
+		collectCoin = insertedMoney;
+	}
 }
