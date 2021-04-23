@@ -39,20 +39,18 @@ public class MainVendingMachineControl {
 	}
 	
 	
-	public Integer setNewPrice(String brand,String Price) {
+	public String setNewPrice(String brand,String Price) {
 		prepare();
 		int newPrice=0;
 		Iterator<Drink> iter = drinks.iterator();
 		 while (iter.hasNext()) {
 		      Drink item = iter.next();
 		     if(brand.equals(item.getBrand())) {
-		    	 System.out.println(item.getBrand());
-		    	  item.setPrice(Integer.parseInt(Price));
+		    	 item.setPrice(Integer.parseInt(Price));
 		    	  newPrice=item.getPrice();
-		    	  break;
-		      }
+		    	  }
 		     }
-		 return newPrice;
+		 return "price of"+" "+brand+" "+"changed to"+" "+newPrice;
 		
 	}
 	

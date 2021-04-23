@@ -1,17 +1,10 @@
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,37 +13,33 @@ import javax.swing.*;
 public class MaintainerPanel {
 
 	public static String passwordStatus="";
-	public static ArrayList<String> brands = new ArrayList<String>();
-	public static ArrayList<Drink> drinksData = new ArrayList<Drink>();
+	static private ArrayList<Drink> ds = MainVendingMachineControl.drinks;
 	static MainVendingMachineControl vendingmachineControl= new MainVendingMachineControl();
 	
 	static JButton drink1=new JButton("Coca-Cola");
 	static JButton drink2=new JButton("Fanta");
 	static JButton drink3=new JButton("Sarsi");
 	static JButton drink4=new JButton("Soya Bean");
+	static JButton drink5=new JButton("Coca-Cola");
 	
 	static JLabel Quantity1=new JLabel();
-	static JLabel Quantity2=new JLabel();
-	static JLabel Quantity3=new JLabel();
-	static JLabel Quantity4=new JLabel();
-//	static JButton drink5=new JButton("");
 	
 public static void main(String [] args) {
 	start();
+	System.out.println(ds);
 
 }
 
 public static void start() {
 	
 	JFrame frame = new JFrame();
-	frame.setSize(600,600);
+	frame.setSize(500,600);
 
 	
 	frame.setTitle("maintainer panel");
 	JPanel content=new JPanel();
 	frame.add(content);
-//	frame.setLayout(new FlowLayout(FlowLayout.CENTER,10,20));
-	content.setLayout(null);
+     content.setLayout(null);
 	
 	
 	JLabel label = new JLabel("Enter Password");
@@ -65,11 +54,9 @@ public static void start() {
     
 	JTextField Password = new JTextField(5);
 	Password.setBounds(50,40,100,30);
-//	content.revalidate();
-	 Password.addActionListener(new ActionListener() {
+    Password.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			String password = Password.getText();
-			System.out.println(password);
 			passwordStatus=verifyPassword(password);
 			System.out.println(passwordStatus);		
 			res.setVisible(true);
@@ -81,19 +68,18 @@ public static void start() {
 
 //drinkssection
 
-JLabel DrinkLabel = new JLabel("All Drinks Available");
-DrinkLabel.setBounds(50, 100, 200, 20);
+JLabel DrinkLabel = new JLabel("All Available Drinks, click to view Quantity and Price");
+DrinkLabel.setBounds(50, 100, 300, 20);
 content.add(DrinkLabel);
 content.revalidate();
 
+drink1.setBounds(0, 120, 100, 30);
+drink2.setBounds(90, 120, 100, 30);
+drink3.setBounds(190, 120, 100, 30);
+drink4.setBounds(290, 120, 100, 30);
+drink5.setBounds(390, 120, 100, 30);
 
-
-drink1.setBounds(10, 120, 100, 20);
-drink2.setBounds(100, 120, 100, 20);
-drink3.setBounds(200, 120, 100, 20);
-drink4.setBounds(300, 120, 100, 20);
-
-Quantity1.setBounds(200, 150, 100, 15);
+Quantity1.setBounds(200, 160, 100, 15);
 Quantity1.setVisible(false);
 content.add(Quantity1);
 
@@ -104,7 +90,7 @@ content.add(SetPriceLabel);
 content.revalidate();
 
 JTextField SetPrice1 = new JTextField(2);
-SetPrice1.setBounds(30, 190, 50, 20);
+SetPrice1.setBounds(20, 190, 50, 20);
 content.add(SetPrice1);
 JTextField SetPrice2 = new JTextField(2);
 SetPrice2.setBounds(120, 190, 50, 20);
@@ -114,8 +100,15 @@ SetPrice3.setBounds(230, 190, 50, 20);
 content.add(SetPrice3);
 JTextField SetPrice4 = new JTextField(2);
 SetPrice4.setBounds(320, 190, 50, 20);
-
 content.add(SetPrice4);
+JTextField SetPrice5 = new JTextField(2);
+SetPrice5.setBounds(400, 190, 50, 20);
+content.add(SetPrice5);
+
+JLabel SuccessLabel = new JLabel();
+SuccessLabel.setBounds(50, 220, 200, 20);
+content.add(SuccessLabel);
+SuccessLabel.setVisible(false);
 
 drink1.addActionListener(new ActionListener() {
 	public void actionPerformed(ActionEvent e) {
@@ -132,7 +125,9 @@ drink1.addActionListener(new ActionListener() {
 		    	 SetPrice1.setVisible(true);
 		    	 SetPrice1.addActionListener(new ActionListener()
 		    			 { public void actionPerformed(ActionEvent ae) {
-		    				setNewPrice(drink1.getText(),SetPrice1.getText());
+		    				String Success=setNewPrice(drink1.getText(),SetPrice1.getText());
+		    				SuccessLabel.setText(Success);
+		    				SuccessLabel.setVisible(true);
 		    			 }
 		    		 });
 		    	 }
@@ -152,7 +147,9 @@ drink2.addActionListener(new ActionListener() {
 		    	 SetPrice2.setVisible(true);
 		    	 SetPrice2.addActionListener(new ActionListener()
     			 { public void actionPerformed(ActionEvent ae) {
-    				setNewPrice(drink2.getText(),SetPrice2.getText());
+    				 String Success=setNewPrice(drink2.getText(),SetPrice2.getText());
+    				 SuccessLabel.setText(Success);
+	    			 SuccessLabel.setVisible(true);
     			 }
     		 });
 		    	 }
@@ -172,7 +169,9 @@ drink3.addActionListener(new ActionListener() {
 		    	 SetPrice3.setVisible(true);
 		    	 SetPrice3.addActionListener(new ActionListener()
     			 { public void actionPerformed(ActionEvent ae) {
-    				setNewPrice(drink3.getText(),SetPrice3.getText());
+    				 String Success=setNewPrice(drink3.getText(),SetPrice3.getText());
+    				 SuccessLabel.setText(Success);
+	    			 SuccessLabel.setVisible(true);
     			 }
     		 });
 		    	 }
@@ -192,20 +191,43 @@ drink4.addActionListener(new ActionListener() {
 		    	 SetPrice4.setVisible(true);
 		    	 SetPrice4.addActionListener(new ActionListener()
     			 { public void actionPerformed(ActionEvent ae) {
-    				setNewPrice(drink4.getText(),SetPrice4.getText());
+    				 String Success= setNewPrice(drink4.getText(),SetPrice4.getText());
+    				 SuccessLabel.setText(Success);
+	    			 SuccessLabel.setVisible(true);
     			 }
     		 });
 		    	 }
 	});
-
+drink5.addActionListener(new ActionListener() {
+	public void actionPerformed(ActionEvent e) {
+		Integer Quantity;
+		Integer Price;
+		Price=getDrinksPrice(drink5.getText());
+		Quantity=getDrinksQuantity(drink5.getText());
+		    	 Quantity1.setText(Integer.toString(Quantity));
+		    	 Quantity1.setVisible(true);
+		    	 content.revalidate();
+		    	 SetPriceLabel.setVisible(true);
+		    	 content.revalidate();
+		    	 SetPrice5.setText(Integer.toString(Price));
+		    	 SetPrice5.setVisible(true);
+		    	 SetPrice5.addActionListener(new ActionListener()
+		    			 { public void actionPerformed(ActionEvent ae) {
+		    				String Success=setNewPrice(drink5.getText(),SetPrice5 .getText());
+		    				SuccessLabel.setText(Success);
+		    				SuccessLabel.setVisible(true);
+		    			 }
+		    		 });
+		    	 }
+	});
 
 content.add(drink1);
 content.add(drink2);
 content.add(drink3);
 content.add(drink4);
+content.add(drink5);
 
-//display();
- frame.setVisible(true);
+frame.setVisible(true);
 	
 }
 public static String verifyPassword(String Password) {
@@ -225,8 +247,8 @@ public static Integer getDrinksPrice(String brand) {
 	
 }
 
-public static void setNewPrice(String brand,String price) {
-	vendingmachineControl.setNewPrice(brand, price);	
+public static String setNewPrice(String brand,String price) {
+	return vendingmachineControl.setNewPrice(brand, price);	
 	
 }
 }
