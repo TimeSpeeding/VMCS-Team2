@@ -4,12 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
- 
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class MachineryPanel {
 	
-	public static void main(String[] args) {
+	private ArrayList<Drink> dl = MainVendingMachineControl.drinks;
+	private ArrayList<Coin> cl = MainVendingMachineControl.coins;
+	
+	public void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				machineryPanel();
@@ -17,7 +20,7 @@ public class MachineryPanel {
 		});
 	}
 	
-	private static void machineryPanel() {
+	public void machineryPanel() {
 		JFrame frame = new JFrame("MachineryPanel");
 		frame.setSize(500, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,27 +70,27 @@ public class MachineryPanel {
 		coin5.setLocation(200, 326);
 		coin5.setFont(cashFont);
 		
-		JTextField coin1Num = new JTextField();
+		JTextField coin1Num = new JTextField(cl.get(0).getQuantity());
 		coin1Num.setSize(80, 30);
 		coin1Num.setLocation(250, 150);
 		coin1Num.setEnabled(false);
 		
-		JTextField coin2Num = new JTextField();
+		JTextField coin2Num = new JTextField(cl.get(1).getQuantity());
 		coin2Num.setSize(80, 30);
 		coin2Num.setLocation(250, 194);
 		coin2Num.setEnabled(false);
 		
-		JTextField coin3Num = new JTextField();
+		JTextField coin3Num = new JTextField(cl.get(2).getQuantity());
 		coin3Num.setSize(80, 30);
 		coin3Num.setLocation(250, 238);
 		coin3Num.setEnabled(false);
 			
-		JTextField coin4Num = new JTextField();
+		JTextField coin4Num = new JTextField(cl.get(3).getQuantity());
 		coin4Num.setSize(80, 30);
 		coin4Num.setLocation(250, 282);
 		coin4Num.setEnabled(false);
 		
-		JTextField coin5Num = new JTextField();
+		JTextField coin5Num = new JTextField(cl.get(4).getQuantity());
 		coin5Num.setSize(80, 30);
 		coin5Num.setLocation(250, 326);
 		coin5Num.setEnabled(false);
@@ -122,27 +125,27 @@ public class MachineryPanel {
 		drink5.setLocation(140, 576);
 		drink5.setFont(drinkFont);
 		
-		JTextField drink1Num = new JTextField("default value");
+		JTextField drink1Num = new JTextField(dl.get(0).getQuantity());
 		drink1Num.setSize(80, 30);
 		drink1Num.setLocation(250, 410);
 		drink1Num.setEnabled(false);
 		
-		JTextField drink2Num = new JTextField("default value");
+		JTextField drink2Num = new JTextField(dl.get(1).getQuantity());
 		drink2Num.setSize(80, 30);
 		drink2Num.setLocation(250, 454);
 		drink2Num.setEnabled(false);
 		
-		JTextField drink3Num = new JTextField("default value");
+		JTextField drink3Num = new JTextField(dl.get(2).getQuantity());
 		drink3Num.setSize(80, 30);
 		drink3Num.setLocation(250, 498);
 		drink3Num.setEnabled(false);
 		
-		JTextField drink4Num = new JTextField("default value");
+		JTextField drink4Num = new JTextField(dl.get(3).getQuantity());
 		drink4Num.setSize(80, 30);
 		drink4Num.setLocation(250, 542);
 		drink4Num.setEnabled(false);
 		
-		JTextField drink5Num = new JTextField("default value");
+		JTextField drink5Num = new JTextField(dl.get(4).getQuantity());
 		drink5Num.setSize(80, 30);
 		drink5Num.setLocation(250, 586);
 		drink5Num.setEnabled(false);
@@ -151,6 +154,22 @@ public class MachineryPanel {
 		update.setSize(80, 40);
 		update.setLocation(200, 660);
 		update.setVisible(false);
+		update.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cl.get(0).setQuantity(Integer.valueOf(coin1Num.getText()).intValue());
+				cl.get(1).setQuantity(Integer.valueOf(coin2Num.getText()).intValue());
+				cl.get(2).setQuantity(Integer.valueOf(coin3Num.getText()).intValue());
+				cl.get(3).setQuantity(Integer.valueOf(coin4Num.getText()).intValue());
+				cl.get(4).setQuantity(Integer.valueOf(coin5Num.getText()).intValue());
+				
+				dl.get(0).setQuantity(Integer.valueOf(drink1Num.getText()).intValue());
+				dl.get(1).setQuantity(Integer.valueOf(drink2Num.getText()).intValue());
+				dl.get(2).setQuantity(Integer.valueOf(drink3Num.getText()).intValue());
+				dl.get(3).setQuantity(Integer.valueOf(drink4Num.getText()).intValue());
+				dl.get(4).setQuantity(Integer.valueOf(drink5Num.getText()).intValue());
+			}
+		});
 		
 		JCheckBox lock = new JCheckBox("lock");
 		lock.setSize(100, 60);
