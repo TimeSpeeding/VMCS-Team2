@@ -18,7 +18,7 @@ public class MachineryPanel {
 	private JTextField coin4Num = new JTextField();
 	private JTextField coin5Num = new JTextField();
 
-	private JTextField drink1Num = new JTextField();
+	JTextField drink1Num = new JTextField();
 	private JTextField drink2Num = new JTextField();
 	private JTextField drink3Num = new JTextField();
 	private JTextField drink4Num = new JTextField();
