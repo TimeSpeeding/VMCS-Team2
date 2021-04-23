@@ -1,7 +1,6 @@
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Vector;
 
 
 public class MainVendingMachineControl {
@@ -10,11 +9,13 @@ public class MainVendingMachineControl {
  	
 	public static String savedPassword="1234";
 	
-	public void main(String[] args) {
+	public static void main(String[] args) {
 		prepare();
+		ControlPanel cp = new ControlPanel();
+		cp.display();
 	}
 	
-	public void prepare() {
+	public static void prepare() {
 		drinks.add(new Drink("Coca-Cola", 75, 5));
 		drinks.add(new Drink("Fanta", 85, 7));
 		drinks.add(new Drink("Sarsi", 70, 12));
@@ -36,7 +37,7 @@ public class MainVendingMachineControl {
 		else {
 			return "Invalid";
 		}
-	}
+	} 
 	
 	
 	public String setNewPrice(String brand,String Price) {

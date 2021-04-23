@@ -12,15 +12,7 @@ public class MachineryPanel {
 	private ArrayList<Drink> dl = MainVendingMachineControl.drinks;
 	private ArrayList<Coin> cl = MainVendingMachineControl.coins;
 	
-	public void main(String[] args) {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				machineryPanel();
-			}
-		});
-	}
-	
-	public void machineryPanel() {
+	public void display() {
 		JFrame frame = new JFrame("MachineryPanel");
 		frame.setSize(500, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
