@@ -114,7 +114,46 @@ public class MainVendingMachineControl {
 		 return Price;
 		
 	}
+
+
+public Integer getCoinsQuantity(Integer value) {
+	
+	Integer Quant=0;
+	Iterator<Coin> iter = coins.iterator();
+	 while (iter.hasNext()) {
+	      Coin item = iter.next();
+	     if(value.equals(item.getValue())) {
+	    	 Quant= item.getQuantity();
+	      }
 }
+	 return Quant;
+}
+
+public Integer totalSum() {		
+	Integer Total=0;
+	Iterator<Coin> iter = coins.iterator();
+	while (iter.hasNext() ) {
+		Coin item = iter.next();		   
+		Total += item.getValue()*item.getQuantity();		   
+	}
+	
+	return Total;
+	
+}
+
+public void resetCoins() {
+	Iterator<Coin> iter = coins.iterator();
+	while(iter.hasNext()) {
+		Coin item = iter.next();
+		item.setQuantity(0);
+	}
+}
+
+
+}
+
+
+
 		      
 		     
 

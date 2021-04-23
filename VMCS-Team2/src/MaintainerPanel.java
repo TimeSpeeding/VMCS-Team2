@@ -12,7 +12,7 @@ public class MaintainerPanel {
 
 	public String passwordStatus="";
 	 private ArrayList<Drink> ds = MainVendingMachineControl.drinks;
-	 MainVendingMachineControl vendingmachineControl= new MainVendingMachineControl();
+	 static MainVendingMachineControl vendingmachineControl= new MainVendingMachineControl();
 	
 	 JButton drink1=new JButton(ds.get(0).getBrand());
 	 JButton drink2=new JButton(ds.get(1).getBrand());
@@ -20,13 +20,30 @@ public class MaintainerPanel {
 	 JButton drink4=new JButton(ds.get(3).getBrand());
 	 JButton drink5=new JButton(ds.get(4).getBrand());
 	 
+	 static JButton coin1 = new JButton("5");
+	 static JButton coin2 = new JButton("10");
+	 static JButton coin3 = new JButton("20");
+	 static JButton coin4 = new JButton("50");
+	 static JButton coin5 = new JButton("100");
+	 static JButton cointotal = new JButton("Coin Total(Cents))");
+	 static JButton reset = new JButton("Coin Collect");
+	 
+	 static JLabel CoinQuantity1=new JLabel();
+	 static JLabel CoinQuantity2=new JLabel();
+	 static JLabel CoinQuantity3=new JLabel();
+	 static JLabel CoinQuantity4=new JLabel();
+	 static JLabel CoinQuantity5=new JLabel();
+	 static JLabel CoinQuantityTotal = new JLabel();
+	 
+	 
+	 
 		
 	 JLabel Quantity1=new JLabel();
 	
 public void display() {
 	
 	JFrame frame = new JFrame();
-	frame.setSize(500,600);
+	frame.setSize(800,600);
 
 	
 	frame.setTitle("maintainer panel");
@@ -95,6 +112,22 @@ Quantity1.setBounds(200, 160, 100, 15);
 Quantity1.setVisible(false);
 content.add(Quantity1);
 
+JLabel CoinLabel = new JLabel("Coins Available");
+CoinLabel.setBounds(50, 290, 200, 20);
+content.add(CoinLabel);
+content.revalidate();
+
+coin1.setBounds(10, 350, 100, 20);
+coin2.setBounds(100, 350, 100, 20);
+coin3.setBounds(200, 350, 100, 20);
+coin4.setBounds(300, 350, 100, 20);
+coin5.setBounds(400, 350, 100, 20);
+cointotal.setBounds(500, 350, 100, 20);
+
+reset.setBounds(10, 500, 100, 20);
+
+
+
 JLabel SetPriceLabel = new JLabel("Set Price:");
 SetPriceLabel.setBounds(10, 160, 150, 20);
 SetPriceLabel.setVisible(false);
@@ -116,6 +149,26 @@ content.add(SetPrice4);
 JTextField SetPrice5 = new JTextField(2);
 SetPrice5.setBounds(400, 190, 50, 20);
 content.add(SetPrice5);
+
+JTextField CoinQuantity1 = new JTextField(2);
+CoinQuantity1.setBounds(30, 400, 50, 20);
+content.add(CoinQuantity1);
+JTextField CoinQuantity2 = new JTextField(2);
+CoinQuantity2.setBounds(120, 400, 50, 20);
+content.add(CoinQuantity2);
+JTextField CoinQuantity3 = new JTextField(2);
+CoinQuantity3.setBounds(230, 400, 50, 20);
+content.add(CoinQuantity3);
+JTextField CoinQuantity4 = new JTextField(2);
+CoinQuantity4.setBounds(320, 400, 50, 20);
+content.add(CoinQuantity4);
+JTextField CoinQuantity5 = new JTextField(2);
+CoinQuantity5.setBounds(410, 400, 50, 20);
+content.add(CoinQuantity5);
+JTextField CoinQuantityTotal = new JTextField(2);
+CoinQuantityTotal.setBounds(530,400, 50, 20);
+content.add(CoinQuantityTotal);
+
 
 JLabel SuccessLabel = new JLabel();
 SuccessLabel.setBounds(50, 220, 200, 20);
@@ -234,11 +287,96 @@ drink5.addActionListener(new ActionListener() {
 		    	 }
 	});
 
+coin1.addActionListener(new ActionListener() {
+	public void actionPerformed(ActionEvent e) {
+		Integer Quantity;
+		Quantity=getCoinsQuantity(Integer.valueOf(coin1.getText()));
+		CoinQuantity1.setText(Integer.toString(Quantity));
+		CoinQuantity1.setVisible(true);
+		
+   	    content.revalidate();
+	}
+});
+
+coin2.addActionListener(new ActionListener() {
+	public void actionPerformed(ActionEvent e) {
+		Integer Quantity;
+		Quantity=getCoinsQuantity(Integer.valueOf(coin2.getText()));
+		CoinQuantity2.setText(Integer.toString(Quantity));
+		CoinQuantity2.setVisible(true);
+   	    content.revalidate();
+	}
+});
+
+coin3.addActionListener(new ActionListener() {
+	public void actionPerformed(ActionEvent e) {
+		Integer Quantity;
+		Quantity=getCoinsQuantity(Integer.valueOf(coin3.getText()));
+		CoinQuantity3.setText(Integer.toString(Quantity));
+		CoinQuantity3.setVisible(true);
+   	    content.revalidate();
+	}
+});
+
+coin4.addActionListener(new ActionListener() {
+	public void actionPerformed(ActionEvent e) {
+		Integer Quantity;
+		Quantity=getCoinsQuantity(Integer.valueOf(coin4.getText()));
+		CoinQuantity4.setText(Integer.toString(Quantity));
+		CoinQuantity4.setVisible(true);
+   	    content.revalidate();
+	}
+});
+
+coin5.addActionListener(new ActionListener() {
+	public void actionPerformed(ActionEvent e) {
+		Integer Quantity;
+		Quantity=getCoinsQuantity(Integer.valueOf(coin5.getText()));
+		CoinQuantity5.setText(Integer.toString(Quantity));
+		CoinQuantity5.setVisible(true);
+   	    content.revalidate();
+	}
+});
+
+cointotal.addActionListener(new ActionListener() {
+	public void actionPerformed(ActionEvent e) {
+		Integer Total;
+		Total=getCoinsTotal();
+		CoinQuantityTotal.setText(Integer.toString(Total));
+		CoinQuantityTotal.setVisible(true);
+		content.revalidate();
+	}
+});
+
+reset.addActionListener(new ActionListener() {
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		resetCoins();
+		coin1.doClick();
+		coin2.doClick();
+		coin3.doClick();
+		coin4.doClick();
+		coin5.doClick();
+		cointotal.doClick();		
+	}
+});
+
+
 content.add(drink1);
 content.add(drink2);
 content.add(drink3);
 content.add(drink4);
 content.add(drink5);
+
+content.add(coin1);
+content.add(coin2);
+content.add(coin3);
+content.add(coin4);
+content.add(coin5);
+content.add(cointotal);
+content.add(reset);
 
 frame.setVisible(true);
 	
@@ -262,9 +400,25 @@ public  Integer getDrinksPrice(String brand) {
 
 public  String setNewPrice(String brand,String price) {
 	return vendingmachineControl.setNewPrice(brand, price);	
+}
+	public static Integer getCoinsQuantity(Integer Value) {
+		return vendingmachineControl.getCoinsQuantity(Value);
+	}
+		
+	public static Integer getCoinsTotal() {
+		return vendingmachineControl.totalSum();
+		
+	}
+
+	public static void resetCoins() {
+		vendingmachineControl.resetCoins();
+	}
+
+
+	
 	
 }
-}
+
 	
 	
 	
