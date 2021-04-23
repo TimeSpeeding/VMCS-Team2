@@ -250,10 +250,47 @@ public class CustomerPanel {
 	}
 	
 	public void purchase() {
-		
+		terminate.setEnabled(false);
+		d.setQuantity(d.getQuantity() - 1);
+		for (int i = 0; i < 5; i++) {
+			cs.get(i).setQuantity(cs.get(i).getQuantity() + coins[i]);
+		}
+		collectCoin = insertedMoney - d.getPrice();
+		collectCanLabel.setText("Collect Can Here:    " + d.getBrand());
+		int change = collectCoin;
+		while(change > 0) {
+			System.out.println(change);
+			for(int i = 4; i >= 0; i--) {
+				if(cs.get(i).getValue() <= change && cs.get(i).getQuantity() > 0) {
+					change -= cs.get(i).getValue();
+					cs.get(i).setQuantity(cs.get(i).getQuantity() - 1);
+					break;
+				}
+			}
+		}
+		restart();
 	}
 	
 	public void terminate() {
 		collectCoin = insertedMoney;
+		restart();
+	}
+	
+	public void restart() {
+		collectCoinLabel.setText("Collect Coins:           " + Integer.toString(collectCoin) + "  c");
+		insertedMoney = 0;
+		totalLabel.setText("Total Money Inserted:  " + Integer.toString(insertedMoney) + "  c");
+		for (int i = 0; i < 4; i++) coins[i] = 0;
+		coin1.setEnabled(false);
+	    coin2.setEnabled(false);
+	    coin3.setEnabled(false);
+	    coin4.setEnabled(false);
+	    coin5.setEnabled(false);
+	    coin6.setEnabled(false);
+	    drink1.setEnabled(!checkAvaliability(0));
+	    drink2.setEnabled(!checkAvaliability(1));
+	    drink3.setEnabled(!checkAvaliability(2));
+	    drink4.setEnabled(!checkAvaliability(3));
+	    drink5.setEnabled(!checkAvaliability(4));
 	}
 }
