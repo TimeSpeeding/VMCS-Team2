@@ -1,5 +1,7 @@
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Vector;
 
 
 public class MainVendingMachineControl {
@@ -37,9 +39,55 @@ public class MainVendingMachineControl {
 	}
 	
 	
+	public Integer setNewPrice(String brand,String Price) {
+		prepare();
+		int newPrice=0;
+		Iterator<Drink> iter = drinks.iterator();
+		 while (iter.hasNext()) {
+		      Drink item = iter.next();
+		     if(brand.equals(item.getBrand())) {
+		    	 System.out.println(item.getBrand());
+		    	  item.setPrice(Integer.parseInt(Price));
+		    	  newPrice=item.getPrice();
+		    	  break;
+		      }
+		     }
+		 return newPrice;
+		
+	}
+	
+	public Integer getdrinksQuantity(String brand) {
+		prepare();
+		Integer Quant=0;
+		Iterator<Drink> iter = drinks.iterator();
+		 while (iter.hasNext()) {
+		      Drink item = iter.next();
+		     if(brand.equals(item.getBrand())) {
+		    	 Quant= item.getQuantity();
+		      }
+}
+		 return Quant;
+		
+	}
+	
+	public Integer getdrinksPrice(String brand) {
+		prepare();
+		Integer Price=0;
+		Iterator<Drink> iter = drinks.iterator();
+		 while (iter.hasNext()) {
+		      Drink item = iter.next();
+		     if(brand.equals(item.getBrand())) {
+		    	 Price= item.getPrice();
+		    	 break;
+		      }
+}
+		 return Price;
+		
+	}
+	}
 		      
 		     
 
-}
+
 
 
