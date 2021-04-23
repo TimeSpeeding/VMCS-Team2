@@ -9,6 +9,14 @@ import javax.swing.*;
 
 public class MachineryPanel {
 	
+	public static void main(String[] args) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				machineryGUI();
+			}
+		});
+	}
+	
 	private static void machineryGUI() {
 		JFrame frame = new JFrame("MachineryPanel");
 		frame.setSize(500, 800);
@@ -193,15 +201,6 @@ public class MachineryPanel {
 		container.add(update);
 		container.add(lock);
 	}
-
 	
-	
-	public static void main(String[] args) {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				machineryGUI();
-;			}
-		});
-	}
 }
 
