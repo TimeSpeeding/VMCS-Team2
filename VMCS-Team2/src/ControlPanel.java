@@ -8,12 +8,13 @@ import javax.swing.*;
 public class ControlPanel {
 	
 	private CustomerPanel customerPanel = new CustomerPanel();
-	private MaintainerPanel maintainerPanel = new MaintainerPanel();
-	private MachineryPanel machineryPanel = new MachineryPanel();
+	 private MaintainerPanel maintainerPanel = new MaintainerPanel();
+	 private MachineryPanel machineryPanel = new MachineryPanel();
 	
-	private JButton actCustomer = new JButton("Activate Customer Panel");
+	JButton actCustomer = new JButton("Activate Customer Panel");
 	private JButton actMaintainer = new JButton("Activate Maintainer Panel");
 	private JButton actMachinery = new JButton("Activate Machinery Panel");
+	
 	
 	public void display() {
 		JFrame frame= new JFrame("VMCS - Simulator Control Panel");
