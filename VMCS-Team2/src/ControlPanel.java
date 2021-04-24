@@ -11,7 +11,7 @@ public class ControlPanel {
 	 private MaintainerPanel maintainerPanel = new MaintainerPanel();
 	 private MachineryPanel machineryPanel = new MachineryPanel();
 	
-	JButton actCustomer = new JButton("Activate Customer Panel");
+	private JButton actCustomer = new JButton("Activate Customer Panel");
 	private JButton actMaintainer = new JButton("Activate Maintainer Panel");
 	private JButton actMachinery = new JButton("Activate Machinery Panel");
 	
