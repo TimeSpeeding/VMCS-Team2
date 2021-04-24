@@ -12,6 +12,7 @@ public class MaintainerPanel {
 
 	public String passwordStatus="";
 	 private ArrayList<Drink> ds = MainVendingMachineControl.drinks;
+	 private ArrayList<Coin> cs = MainVendingMachineControl.coins;
 	 static MainVendingMachineControl vendingmachineControl= new MainVendingMachineControl();
 	
 	 JButton drink1=new JButton(ds.get(0).getBrand());
@@ -20,12 +21,14 @@ public class MaintainerPanel {
 	 JButton drink4=new JButton(ds.get(3).getBrand());
 	 JButton drink5=new JButton(ds.get(4).getBrand());
 	 
+	 
+	 
 	 static JButton coin1 = new JButton("5");
 	 static JButton coin2 = new JButton("10");
 	 static JButton coin3 = new JButton("20");
 	 static JButton coin4 = new JButton("50");
 	 static JButton coin5 = new JButton("100");
-	 static JButton cointotal = new JButton("Coin Total(Cents))");
+	 static JButton cointotal = new JButton("Coin Total(Cents)");
 	 static JButton reset = new JButton("Coin Collect");
 	 
 	 static JLabel CoinQuantity1=new JLabel();
@@ -74,6 +77,13 @@ public void display() {
 				drink3.setEnabled(false);
 				drink4.setEnabled(false);
 				drink5.setEnabled(false);
+				coin1.setEnabled(false);
+				coin2.setEnabled(false);
+				coin3.setEnabled(false);
+				coin4.setEnabled(false);
+				coin5.setEnabled(false);
+				cointotal.setEnabled(false);
+				reset.setEnabled(false);
 			}else
 			{
 				drink1.setEnabled(true);
@@ -81,6 +91,13 @@ public void display() {
 				drink3.setEnabled(true);
 				drink4.setEnabled(true);
 				drink5.setEnabled(true);
+				coin1.setEnabled(true);
+				coin2.setEnabled(true);
+				coin3.setEnabled(true);
+				coin4.setEnabled(true);
+				coin5.setEnabled(true);
+				cointotal.setEnabled(true);
+				reset.setEnabled(true);
 			}
 			//System.out.println(passwordStatus);		
 			res.setVisible(true);
@@ -107,6 +124,13 @@ drink2.setEnabled(false);
 drink3.setEnabled(false);
 drink4.setEnabled(false);
 drink5.setEnabled(false);
+coin1.setEnabled(false);
+coin2.setEnabled(false);
+coin3.setEnabled(false);
+coin4.setEnabled(false);
+coin5.setEnabled(false);
+cointotal.setEnabled(false);
+reset.setEnabled(false);
 
 Quantity1.setBounds(200, 160, 100, 15);
 Quantity1.setVisible(false);
@@ -122,9 +146,9 @@ coin2.setBounds(100, 350, 100, 20);
 coin3.setBounds(200, 350, 100, 20);
 coin4.setBounds(300, 350, 100, 20);
 coin5.setBounds(400, 350, 100, 20);
-cointotal.setBounds(500, 350, 100, 20);
+cointotal.setBounds(500, 350, 150, 20);
 
-reset.setBounds(10, 500, 100, 20);
+reset.setBounds(10, 500, 150, 20);
 
 
 
