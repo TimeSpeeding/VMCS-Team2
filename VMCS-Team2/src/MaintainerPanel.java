@@ -412,12 +412,12 @@ public  String verifyPassword(String Password) {
 
 
 
-public  Integer getDrinksQuantity(String brand) {
+public  int getDrinksQuantity(String brand) {
 	return vendingmachineControl.getdrinksQuantity(brand);
 	
 }
 
-public  Integer getDrinksPrice(String brand) {
+public  int getDrinksPrice(String brand) {
 	return vendingmachineControl.getdrinksPrice(brand);
 	
 }

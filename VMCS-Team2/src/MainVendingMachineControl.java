@@ -85,7 +85,7 @@ public class MainVendingMachineControl {
 		
 	}
 	
-	public Integer getdrinksQuantity(String brand) {
+	public int getdrinksQuantity(String brand) {
 		prepare();
 		Integer Quant=0;
 		Iterator<Drink> iter = drinks.iterator();
@@ -100,7 +100,7 @@ public class MainVendingMachineControl {
 		
 	}
 	
-	public Integer getdrinksPrice(String brand) {
+	public int getdrinksPrice(String brand) {
 		prepare();
 		Integer Price=0;
 		Iterator<Drink> iter = drinks.iterator();
