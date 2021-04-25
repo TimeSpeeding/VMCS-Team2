@@ -47,12 +47,9 @@ public class MaintainCashTest extends TestCase {
 		ds=null;
 	}
 	@Test
-	public void testDrinkandCoinsValues() {
+	public void testCoinsValues() {
 		assertNotNull(cs);
-		assertEquals("Coca-Cola",ds.get(4).getBrand());
 		assertEquals(5,cs.get(0).getValue());
-		assertEquals(75,ds.get(0).getPrice());
-		
 	}
 	@Test
 	public void testgetCoinsQuantity() {
