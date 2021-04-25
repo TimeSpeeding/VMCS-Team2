@@ -1,0 +1,12 @@
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	CustomerTest.class,
+	MachineryTest.class,
+	MaintainerpanelDrinks.class
+})
+public class AllTests {
+
+}

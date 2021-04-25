@@ -42,13 +42,14 @@ public class MaintainerpanelDrinks extends TestCase {
 		vmcs = null;
 		ds = null;
 		cs = null;
+		mp = null;
 	}	
 	
 	@Test
 	public void testgetDrinksQuantity() {
 		assertNotNull(ds);
-		assertEquals(5,ds.get(0).getQuantity() );
-		assertEquals(5,mp.getDrinksQuantity("Coca-Cola"));
+		assertEquals(7,ds.get(1).getQuantity() );
+		assertEquals(7,mp.getDrinksQuantity("Fanta"));
 	}
 	@Test
 	public void testgetDrinksPrice() {
