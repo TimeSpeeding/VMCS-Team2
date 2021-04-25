@@ -71,7 +71,7 @@ public class MainVendingMachineControl {
 	
 	
 	public String setNewPrice(String brand,String Price) {
-		prepare();
+		//prepare();
 		int newPrice=0;
 		Iterator<Drink> iter = drinks.iterator();
 		 while (iter.hasNext()) {
@@ -86,7 +86,7 @@ public class MainVendingMachineControl {
 	}
 	
 	public int getdrinksQuantity(String brand) {
-		prepare();
+		//prepare();
 		Integer Quant=0;
 		Iterator<Drink> iter = drinks.iterator();
 		 while (iter.hasNext()) {
@@ -101,7 +101,7 @@ public class MainVendingMachineControl {
 	}
 	
 	public int getdrinksPrice(String brand) {
-		prepare();
+		//prepare();
 		Integer Price=0;
 		Iterator<Drink> iter = drinks.iterator();
 		 while (iter.hasNext()) {
