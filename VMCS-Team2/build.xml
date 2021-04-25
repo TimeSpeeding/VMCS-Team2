@@ -5,22 +5,23 @@
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="VMCS-Team2">
     <property environment="env"/>
+    <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
     <path id="JUnit 4.libraryclasspath">
-        <pathelement location="C:/Users/MSI-PC/.p2/pool/plugins/org.junit_4.13.0.v20200204-1500.jar"/>
-        <pathelement location="C:/Users/MSI-PC/.p2/pool/plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
+        <pathelement location="lib/org.junit_4.13.0.v20200204-1500.jar"/>
+        <pathelement location="lib/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
     </path>
     <path id="VMCS-Team2.classpath">
         <pathelement location="bin"/>
         <path refid="JUnit 4.libraryclasspath"/>
     </path>
-    <path id="run.CustomerPanel.classpath">
+    <path id="run.MainVendingMachineControl.classpath">
         <path refid="VMCS-Team2.classpath"/>
         <path refid="JUnit 4.libraryclasspath"/>
     </path>
-    <path id="run.MainVendingMachineControl.classpath">
+    <path id="run.AllTests.classpath">
         <path refid="VMCS-Team2.classpath"/>
         <path refid="JUnit 4.libraryclasspath"/>
     </path>
@@ -43,7 +44,7 @@
         <delete dir="bin"/>
     </target>
     <target depends="clean" name="cleanall"/>
-    <target depends="build-subprojects,build-project" name="build"/>
+    <target depends="build-subprojects,build-project,AllTests,junitreport" name="build"/>
     <target name="build-subprojects"/>
     <target depends="init" name="build-project">
         <echo message="${ant.project.name}: ${ant.file}"/>
@@ -67,14 +68,26 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="CustomerPanel">
-        <java classname="CustomerPanel" failonerror="true" fork="yes">
-            <classpath refid="run.CustomerPanel.classpath"/>
-        </java>
-    </target>
     <target name="MainVendingMachineControl">
         <java classname="MainVendingMachineControl" failonerror="true" fork="yes">
             <classpath refid="run.MainVendingMachineControl.classpath"/>
         </java>
+    </target>
+    <target name="AllTests">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="AllTests" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="run.AllTests.classpath"/>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
     </target>
 </project>
